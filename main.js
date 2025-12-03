@@ -1175,35 +1175,39 @@ var EmbedGenerator = class {
     return embedCode;
   }
   /**
-   * Generate video embed (HTML5 video with direct content URL)
+   * Generate video embed (iframe with Google Drive player)
+   * Using /preview URL ensures compatibility with all file sizes
+   * and leverages Google's built-in video player
    */
   generateVideoEmbed(result, size) {
-    const videoUrl = `https://drive.google.com/uc?export=download&id=${result.fileId}`;
+    const previewUrl = `https://drive.google.com/file/d/${result.fileId}/preview`;
     return `<div style="width: ${size.width}; margin: 0 auto;">
-<video
-    src="${videoUrl}"
+<iframe
+    src="${previewUrl}"
     width="100%"
     height="${size.height}"
-    controls
-    preload="metadata"
-    style="border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); background-color: #000;">
-    \uBE0C\uB77C\uC6B0\uC800\uAC00 \uBE44\uB514\uC624\uB97C \uC9C0\uC6D0\uD558\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4.
-</video>
+    frameborder="0"
+    allow="autoplay; encrypted-media"
+    allowfullscreen
+    style="border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); background-color: #000;">
+</iframe>
 </div>`;
   }
   /**
-   * Generate audio embed (HTML5 audio with direct content URL)
+   * Generate audio embed (iframe with Google Drive player)
+   * Using /preview URL ensures compatibility with all file sizes
    */
   generateAudioEmbed(result, size) {
-    const audioUrl = `https://drive.google.com/uc?export=download&id=${result.fileId}`;
+    const previewUrl = `https://drive.google.com/file/d/${result.fileId}/preview`;
     return `<div style="width: ${size.width}; margin: 0 auto;">
-<audio
-    src="${audioUrl}"
-    controls
-    preload="metadata"
-    style="width: 100%; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-    \uBE0C\uB77C\uC6B0\uC800\uAC00 \uC624\uB514\uC624\uB97C \uC9C0\uC6D0\uD558\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4.
-</audio>
+<iframe
+    src="${previewUrl}"
+    width="100%"
+    height="${size.height}"
+    frameborder="0"
+    allow="autoplay; encrypted-media"
+    style="border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+</iframe>
 </div>`;
   }
   /**

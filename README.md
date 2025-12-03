@@ -133,6 +133,14 @@ Before using the plugin, you need to set up Google OAuth credentials:
 
 ## Version History
 
+### v1.0.5 (2025-12-03)
+- **Major Fix**: Switched to iframe-based embed for video/audio
+- Resolved large file playback issues (files > 25MB)
+- Now uses Google Drive's native player via `/preview` URL
+- Eliminates virus scan redirect issues with direct download URLs
+- Improved compatibility with all file sizes
+- More stable playback in Obsidian share notes
+
 ### v1.0.4 (2025-12-03)
 - **Critical Fix**: Corrected Google Drive URL parameter order
 - Fixed URL format from `?id=...&export=download` to `?export=download&id=...`

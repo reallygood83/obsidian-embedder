@@ -52,40 +52,42 @@ export class EmbedGenerator {
     }
 
     /**
-     * Generate video embed (HTML5 video with direct content URL)
+     * Generate video embed (iframe with Google Drive player)
+     * Using /preview URL ensures compatibility with all file sizes
+     * and leverages Google's built-in video player
      */
     private generateVideoEmbed(result: DriveUploadResult, size: SizeOption): string {
-        // Always use direct download URL with correct parameter order
-        const videoUrl = `https://drive.google.com/uc?export=download&id=${result.fileId}`;
+        const previewUrl = `https://drive.google.com/file/d/${result.fileId}/preview`;
 
         return `<div style="width: ${size.width}; margin: 0 auto;">
-<video
-    src="${videoUrl}"
+<iframe
+    src="${previewUrl}"
     width="100%"
     height="${size.height}"
-    controls
-    preload="metadata"
-    style="border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); background-color: #000;">
-    브라우저가 비디오를 지원하지 않습니다.
-</video>
+    frameborder="0"
+    allow="autoplay; encrypted-media"
+    allowfullscreen
+    style="border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); background-color: #000;">
+</iframe>
 </div>`;
     }
 
     /**
-     * Generate audio embed (HTML5 audio with direct content URL)
+     * Generate audio embed (iframe with Google Drive player)
+     * Using /preview URL ensures compatibility with all file sizes
      */
     private generateAudioEmbed(result: DriveUploadResult, size: SizeOption): string {
-        // Always use direct download URL with correct parameter order
-        const audioUrl = `https://drive.google.com/uc?export=download&id=${result.fileId}`;
+        const previewUrl = `https://drive.google.com/file/d/${result.fileId}/preview`;
 
         return `<div style="width: ${size.width}; margin: 0 auto;">
-<audio
-    src="${audioUrl}"
-    controls
-    preload="metadata"
-    style="width: 100%; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-    브라우저가 오디오를 지원하지 않습니다.
-</audio>
+<iframe
+    src="${previewUrl}"
+    width="100%"
+    height="${size.height}"
+    frameborder="0"
+    allow="autoplay; encrypted-media"
+    style="border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+</iframe>
 </div>`;
     }
 
