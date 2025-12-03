@@ -133,6 +133,12 @@ Before using the plugin, you need to set up Google OAuth credentials:
 
 ## Version History
 
+### v1.0.4 (2025-12-03)
+- **Critical Fix**: Corrected Google Drive URL parameter order
+- Fixed URL format from `?id=...&export=download` to `?export=download&id=...`
+- Videos and audio now play correctly without webContentLink dependency
+- Eliminated URL format inconsistencies
+
 ### v1.0.3 (2025-12-03)
 - **Fixed**: Video/audio embed now uses HTML5 tags for immediate playback
 - **Fixed**: Eliminated "video still processing" error from Google Drive

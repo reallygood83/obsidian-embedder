@@ -55,8 +55,8 @@ export class EmbedGenerator {
      * Generate video embed (HTML5 video with direct content URL)
      */
     private generateVideoEmbed(result: DriveUploadResult, size: SizeOption): string {
-        // Use direct content link for immediate playback without processing delay
-        const videoUrl = result.webContentLink || `https://drive.google.com/uc?export=download&id=${result.fileId}`;
+        // Always use direct download URL with correct parameter order
+        const videoUrl = `https://drive.google.com/uc?export=download&id=${result.fileId}`;
 
         return `<div style="width: ${size.width}; margin: 0 auto;">
 <video
@@ -75,8 +75,8 @@ export class EmbedGenerator {
      * Generate audio embed (HTML5 audio with direct content URL)
      */
     private generateAudioEmbed(result: DriveUploadResult, size: SizeOption): string {
-        // Use direct content link for immediate playback without processing delay
-        const audioUrl = result.webContentLink || `https://drive.google.com/uc?export=download&id=${result.fileId}`;
+        // Always use direct download URL with correct parameter order
+        const audioUrl = `https://drive.google.com/uc?export=download&id=${result.fileId}`;
 
         return `<div style="width: ${size.width}; margin: 0 auto;">
 <audio

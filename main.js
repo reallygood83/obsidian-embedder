@@ -1178,7 +1178,7 @@ var EmbedGenerator = class {
    * Generate video embed (HTML5 video with direct content URL)
    */
   generateVideoEmbed(result, size) {
-    const videoUrl = result.webContentLink || `https://drive.google.com/uc?export=download&id=${result.fileId}`;
+    const videoUrl = `https://drive.google.com/uc?export=download&id=${result.fileId}`;
     return `<div style="width: ${size.width}; margin: 0 auto;">
 <video
     src="${videoUrl}"
@@ -1195,7 +1195,7 @@ var EmbedGenerator = class {
    * Generate audio embed (HTML5 audio with direct content URL)
    */
   generateAudioEmbed(result, size) {
-    const audioUrl = result.webContentLink || `https://drive.google.com/uc?export=download&id=${result.fileId}`;
+    const audioUrl = `https://drive.google.com/uc?export=download&id=${result.fileId}`;
     return `<div style="width: ${size.width}; margin: 0 auto;">
 <audio
     src="${audioUrl}"
