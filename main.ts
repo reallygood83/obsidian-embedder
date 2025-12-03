@@ -26,14 +26,14 @@ export default class DriveEmbedderPlugin extends Plugin {
         this.initializeServices();
 
         // Add ribbon icon
-        this.addRibbonIcon('cloud-upload', 'Drive Embedder: 파일 업로드', () => {
+        this.addRibbonIcon('cloud-upload', 'Drive Embedder: Upload File', () => {
             this.openUploadModal();
         });
 
         // Add command
         this.addCommand({
             id: 'upload-and-embed',
-            name: '파일 업로드 & 임베드',
+            name: 'Upload File & Embed',
             editorCallback: (editor: Editor, view: MarkdownView) => {
                 this.openUploadModal(editor);
             }
@@ -86,7 +86,7 @@ export default class DriveEmbedderPlugin extends Plugin {
 
     async startOAuthFlow(): Promise<boolean> {
         if (!this.oauthFlow) {
-            new Notice('Google OAuth 설정을 먼저 입력해주세요.');
+            new Notice('Please enter Google OAuth settings first.');
             return false;
         }
 
@@ -98,11 +98,11 @@ export default class DriveEmbedderPlugin extends Plugin {
             this.settings.tokenExpiresAt = tokens.expiresAt;
             await this.saveSettings();
 
-            new Notice('✅ Google Drive 연결 완료!');
+            new Notice('✅ Google Drive connected successfully!');
             return true;
         } catch (error: any) {
             console.error('OAuth flow failed:', error);
-            new Notice(`❌ 연결 실패: ${error.message}`);
+            new Notice(`❌ Connection failed: ${error.message}`);
             return false;
         }
     }
@@ -113,7 +113,7 @@ export default class DriveEmbedderPlugin extends Plugin {
         this.settings.tokenExpiresAt = 0;
         this.uploader = null;
         await this.saveSettings();
-        new Notice('Google Drive 연결이 해제되었습니다.');
+        new Notice('Google Drive disconnected.');
     }
 
     isConnected(): boolean {
@@ -122,12 +122,12 @@ export default class DriveEmbedderPlugin extends Plugin {
 
     private openUploadModal(editor?: Editor) {
         if (!this.isConnected()) {
-            new Notice('먼저 Google Drive에 연결해주세요. (설정에서 연결)');
+            new Notice('Please connect to Google Drive first. (Connect in settings)');
             return;
         }
 
         if (!this.uploader) {
-            new Notice('업로더 초기화 실패. 설정을 확인해주세요.');
+            new Notice('Uploader initialization failed. Please check settings.');
             return;
         }
 
@@ -149,7 +149,7 @@ export default class DriveEmbedderPlugin extends Plugin {
                 } else {
                     // Copy to clipboard
                     await navigator.clipboard.writeText(embedCode);
-                    new Notice('📋 임베드 코드가 클립보드에 복사되었습니다!');
+                    new Notice('📋 Embed code copied to clipboard!');
                 }
             }
         ).open();
@@ -168,7 +168,7 @@ class DriveEmbedderSettingTab extends PluginSettingTab {
         const { containerEl } = this;
         containerEl.empty();
 
-        containerEl.createEl('h2', { text: 'Drive Embedder 설정' });
+        containerEl.createEl('h2', { text: 'Drive Embedder Settings' });
 
         // Connection status
         this.createConnectionSection(containerEl);
@@ -191,19 +191,19 @@ class DriveEmbedderSettingTab extends PluginSettingTab {
 
         const isConnected = this.plugin.isConnected();
 
-        connectionDiv.createEl('h3', { text: '연결 상태' });
+        connectionDiv.createEl('h3', { text: 'Connection Status' });
 
         const statusDiv = connectionDiv.createDiv({ cls: 'connection-status' });
         statusDiv.innerHTML = isConnected
-            ? '<span class="status-connected">✅ Google Drive 연결됨</span>'
-            : '<span class="status-disconnected">❌ 연결 안됨</span>';
+            ? '<span class="status-connected">✅ Google Drive Connected</span>'
+            : '<span class="status-disconnected">❌ Not Connected</span>';
 
         if (isConnected) {
             new Setting(connectionDiv)
-                .setName('연결 해제')
-                .setDesc('Google Drive 연결을 해제합니다')
+                .setName('Disconnect')
+                .setDesc('Disconnect from Google Drive')
                 .addButton(button => button
-                    .setButtonText('연결 해제')
+                    .setButtonText('Disconnect')
                     .setWarning()
                     .onClick(async () => {
                         await this.plugin.disconnectGoogleDrive();
@@ -212,10 +212,10 @@ class DriveEmbedderSettingTab extends PluginSettingTab {
                 );
         } else {
             new Setting(connectionDiv)
-                .setName('Google Drive 연결')
-                .setDesc('아래에 OAuth 설정을 입력한 후 연결 버튼을 클릭하세요')
+                .setName('Connect to Google Drive')
+                .setDesc('Enter OAuth settings below, then click the Connect button')
                 .addButton(button => button
-                    .setButtonText('연결하기')
+                    .setButtonText('Connect')
                     .setCta()
                     .onClick(async () => {
                         const success = await this.plugin.startOAuthFlow();
@@ -228,11 +228,11 @@ class DriveEmbedderSettingTab extends PluginSettingTab {
     }
 
     private createOAuthSection(containerEl: HTMLElement) {
-        containerEl.createEl('h3', { text: 'Google OAuth 설정' });
+        containerEl.createEl('h3', { text: 'Google OAuth Settings' });
 
         new Setting(containerEl)
             .setName('Client ID')
-            .setDesc('Google Cloud Console에서 생성한 OAuth Client ID')
+            .setDesc('OAuth Client ID generated from Google Cloud Console')
             .addText(text => text
                 .setPlaceholder('xxx.apps.googleusercontent.com')
                 .setValue(this.plugin.settings.googleClientId)
@@ -244,7 +244,7 @@ class DriveEmbedderSettingTab extends PluginSettingTab {
 
         new Setting(containerEl)
             .setName('Client Secret')
-            .setDesc('Google Cloud Console에서 생성한 OAuth Client Secret')
+            .setDesc('OAuth Client Secret generated from Google Cloud Console')
             .addText(text => text
                 .setPlaceholder('GOCSPX-...')
                 .setValue(this.plugin.settings.googleClientSecret)
@@ -256,11 +256,11 @@ class DriveEmbedderSettingTab extends PluginSettingTab {
     }
 
     private createDriveSection(containerEl: HTMLElement) {
-        containerEl.createEl('h3', { text: 'Google Drive 설정' });
+        containerEl.createEl('h3', { text: 'Google Drive Settings' });
 
         new Setting(containerEl)
-            .setName('업로드 폴더')
-            .setDesc('파일이 업로드될 Google Drive 폴더 경로')
+            .setName('Upload Folder')
+            .setDesc('Google Drive folder path for uploaded files')
             .addText(text => text
                 .setPlaceholder('Obsidian/DriveEmbedder')
                 .setValue(this.plugin.settings.driveFolder)
@@ -272,11 +272,11 @@ class DriveEmbedderSettingTab extends PluginSettingTab {
     }
 
     private createEmbedSection(containerEl: HTMLElement) {
-        containerEl.createEl('h3', { text: '임베드 설정' });
+        containerEl.createEl('h3', { text: 'Embed Settings' });
 
         new Setting(containerEl)
-            .setName('파일명 기본 표시')
-            .setDesc('임베드 코드에 파일명을 기본으로 표시합니다')
+            .setName('Show Filename by Default')
+            .setDesc('Display filename in embed code by default')
             .addToggle(toggle => toggle
                 .setValue(this.plugin.settings.showTitleByDefault)
                 .onChange(async (value) => {
@@ -286,12 +286,12 @@ class DriveEmbedderSettingTab extends PluginSettingTab {
             );
 
         new Setting(containerEl)
-            .setName('기본 테마')
-            .setDesc('임베드 기본 테마 (시스템 테마 자동 감지)')
+            .setName('Default Theme')
+            .setDesc('Default embed theme (auto-detects system theme)')
             .addDropdown(dropdown => dropdown
-                .addOption('auto', '자동 (시스템 테마)')
-                .addOption('light', '라이트')
-                .addOption('dark', '다크')
+                .addOption('auto', 'Auto (System Theme)')
+                .addOption('light', 'Light')
+                .addOption('dark', 'Dark')
                 .setValue(this.plugin.settings.defaultTheme)
                 .onChange(async (value: 'auto' | 'light' | 'dark') => {
                     this.plugin.settings.defaultTheme = value;
@@ -299,15 +299,15 @@ class DriveEmbedderSettingTab extends PluginSettingTab {
                 })
             );
 
-        containerEl.createEl('h4', { text: '기본 임베드 크기' });
+        containerEl.createEl('h4', { text: 'Default Embed Size' });
 
         new Setting(containerEl)
-            .setName('동영상 기본 크기')
+            .setName('Default Video Size')
             .addDropdown(dropdown => dropdown
-                .addOption('compact', '아담하게')
-                .addOption('medium', '적당히 크게')
-                .addOption('large', '크게')
-                .addOption('fullwidth', '아주 크게')
+                .addOption('compact', 'Compact')
+                .addOption('medium', 'Medium')
+                .addOption('large', 'Large')
+                .addOption('fullwidth', 'Full Width')
                 .setValue(this.plugin.settings.defaultVideoSize)
                 .onChange(async (value) => {
                     this.plugin.settings.defaultVideoSize = value;
@@ -316,10 +316,10 @@ class DriveEmbedderSettingTab extends PluginSettingTab {
             );
 
         new Setting(containerEl)
-            .setName('오디오 기본 크기')
+            .setName('Default Audio Size')
             .addDropdown(dropdown => dropdown
-                .addOption('slim', '슬림')
-                .addOption('standard', '표준')
+                .addOption('slim', 'Slim')
+                .addOption('standard', 'Standard')
                 .setValue(this.plugin.settings.defaultAudioSize)
                 .onChange(async (value) => {
                     this.plugin.settings.defaultAudioSize = value;
@@ -328,12 +328,12 @@ class DriveEmbedderSettingTab extends PluginSettingTab {
             );
 
         new Setting(containerEl)
-            .setName('문서 기본 크기')
+            .setName('Default Document Size')
             .addDropdown(dropdown => dropdown
-                .addOption('compact', '아담하게')
-                .addOption('medium', '적당히 크게')
-                .addOption('large', '크게')
-                .addOption('fullheight', '전체 높이')
+                .addOption('compact', 'Compact')
+                .addOption('medium', 'Medium')
+                .addOption('large', 'Large')
+                .addOption('fullheight', 'Full Height')
                 .setValue(this.plugin.settings.defaultDocumentSize)
                 .onChange(async (value) => {
                     this.plugin.settings.defaultDocumentSize = value;
@@ -342,12 +342,12 @@ class DriveEmbedderSettingTab extends PluginSettingTab {
             );
 
         new Setting(containerEl)
-            .setName('이미지 기본 크기')
+            .setName('Default Image Size')
             .addDropdown(dropdown => dropdown
-                .addOption('small', '작게')
-                .addOption('medium', '중간')
-                .addOption('large', '크게')
-                .addOption('original', '원본 크기')
+                .addOption('small', 'Small')
+                .addOption('medium', 'Medium')
+                .addOption('large', 'Large')
+                .addOption('original', 'Original Size')
                 .setValue(this.plugin.settings.defaultImageSize)
                 .onChange(async (value) => {
                     this.plugin.settings.defaultImageSize = value;
@@ -357,52 +357,52 @@ class DriveEmbedderSettingTab extends PluginSettingTab {
     }
 
     private createHelpSection(containerEl: HTMLElement) {
-        containerEl.createEl('h3', { text: '도움말' });
+        containerEl.createEl('h3', { text: 'Help' });
 
         const helpDiv = containerEl.createDiv({ cls: 'drive-embedder-help' });
 
         helpDiv.innerHTML = `
             <details>
-                <summary><strong>📋 Google OAuth 설정 방법</strong></summary>
+                <summary><strong>📋 How to Set Up Google OAuth</strong></summary>
                 <ol>
-                    <li><a href="https://console.cloud.google.com" target="_blank">Google Cloud Console</a>에 접속</li>
-                    <li>새 프로젝트 생성 또는 기존 프로젝트 선택</li>
-                    <li>APIs & Services → OAuth consent screen 설정</li>
-                    <li>APIs & Services → Credentials → Create Credentials → OAuth Client ID</li>
-                    <li>Application type: Desktop app 선택</li>
-                    <li>생성된 Client ID와 Client Secret을 위 설정에 입력</li>
-                    <li>Google Drive API 활성화 필요</li>
+                    <li>Go to <a href="https://console.cloud.google.com" target="_blank">Google Cloud Console</a></li>
+                    <li>Create a new project or select an existing one</li>
+                    <li>Go to APIs & Services → OAuth consent screen and configure</li>
+                    <li>Go to APIs & Services → Credentials → Create Credentials → OAuth Client ID</li>
+                    <li>Select Application type: Desktop app</li>
+                    <li>Enter the generated Client ID and Client Secret in the settings above</li>
+                    <li>Enable Google Drive API</li>
                 </ol>
             </details>
 
             <details>
-                <summary><strong>🎬 지원 파일 형식</strong></summary>
+                <summary><strong>🎬 Supported File Formats</strong></summary>
                 <ul>
-                    <li><strong>동영상:</strong> MP4, WebM, MOV, AVI</li>
-                    <li><strong>오디오:</strong> MP3, WAV, OGG, M4A</li>
-                    <li><strong>문서:</strong> PDF</li>
-                    <li><strong>이미지:</strong> JPG, PNG, GIF, WebP, SVG</li>
+                    <li><strong>Video:</strong> MP4, WebM, MOV, AVI</li>
+                    <li><strong>Audio:</strong> MP3, WAV, OGG, M4A</li>
+                    <li><strong>Document:</strong> PDF</li>
+                    <li><strong>Image:</strong> JPG, PNG, GIF, WebP, SVG</li>
                 </ul>
             </details>
 
             <details>
-                <summary><strong>📐 임베드 크기 가이드</strong></summary>
+                <summary><strong>📐 Embed Size Guide</strong></summary>
                 <ul>
-                    <li><strong>아담하게:</strong> 본문 중간에 삽입하기 좋은 크기</li>
-                    <li><strong>적당히 크게:</strong> 일반적인 시청/확인에 적합 (추천)</li>
-                    <li><strong>크게:</strong> 상세 확인이 필요할 때</li>
-                    <li><strong>아주 크게:</strong> 몰입감 있는 전체 폭 표시</li>
+                    <li><strong>Compact:</strong> Good size for inline content</li>
+                    <li><strong>Medium:</strong> Suitable for general viewing (Recommended)</li>
+                    <li><strong>Large:</strong> When detailed view is needed</li>
+                    <li><strong>Full Width:</strong> Immersive full-width display</li>
                 </ul>
             </details>
 
             <details>
-                <summary><strong>🔗 사용 방법</strong></summary>
+                <summary><strong>🔗 How to Use</strong></summary>
                 <ol>
-                    <li>사이드바의 구름 아이콘 클릭 또는 명령어 팔레트에서 "Drive Embedder" 검색</li>
-                    <li>파일 선택 (드래그&드롭 또는 파일 선택 버튼)</li>
-                    <li>원하는 임베드 크기 선택</li>
-                    <li>"업로드 & 임베드" 버튼 클릭</li>
-                    <li>업로드 완료 후 임베드 코드가 자동으로 삽입됩니다</li>
+                    <li>Click the cloud icon in the sidebar or search "Drive Embedder" in the command palette</li>
+                    <li>Select a file (drag & drop or use the file picker button)</li>
+                    <li>Choose your desired embed size</li>
+                    <li>Click the "Upload & Embed" button</li>
+                    <li>The embed code will be automatically inserted after upload</li>
                 </ol>
             </details>
         `;

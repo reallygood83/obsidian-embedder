@@ -1,6 +1,6 @@
 /**
  * Drive Embedder - Size Presets
- * Intuitive size options with Korean labels
+ * Intuitive size options for all content types
  */
 
 import { ContentCategory, SizeOption, SupportedFileType } from './types';
@@ -13,34 +13,34 @@ export const SIZE_PRESETS: Record<ContentCategory, SizeOption[]> = {
     video: [
         {
             id: 'compact',
-            label: '아담하게',
+            label: 'Compact',
             icon: '🔹',
-            description: '본문 중간에 삽입하기 좋은 크기',
+            description: 'Good for inline content',
             width: '60%',
             height: '280px'
         },
         {
             id: 'medium',
-            label: '적당히 크게',
+            label: 'Medium',
             icon: '🔸',
-            description: '일반적인 시청에 적합',
+            description: 'Recommended for most use cases',
             width: '80%',
             height: '400px',
             recommended: true
         },
         {
             id: 'large',
-            label: '크게',
+            label: 'Large',
             icon: '🔶',
-            description: '상세 확인이 필요할 때',
+            description: 'For detailed viewing',
             width: '100%',
             height: '500px'
         },
         {
             id: 'fullwidth',
-            label: '아주 크게',
+            label: 'Full Width',
             icon: '🟠',
-            description: '몰입감 있는 시청',
+            description: 'Immersive viewing experience',
             width: '100%',
             height: '600px'
         }
@@ -48,34 +48,34 @@ export const SIZE_PRESETS: Record<ContentCategory, SizeOption[]> = {
     document: [
         {
             id: 'compact',
-            label: '아담하게',
+            label: 'Compact',
             icon: '🔹',
-            description: '간단한 미리보기용',
+            description: 'Quick preview',
             width: '70%',
             height: '400px'
         },
         {
             id: 'medium',
-            label: '적당히 크게',
+            label: 'Medium',
             icon: '🔸',
-            description: '문서 읽기에 적합',
+            description: 'Good for reading documents',
             width: '100%',
             height: '500px',
             recommended: true
         },
         {
             id: 'large',
-            label: '크게',
+            label: 'Large',
             icon: '🔶',
-            description: '편안한 열람',
+            description: 'Comfortable reading',
             width: '100%',
             height: '650px'
         },
         {
             id: 'fullwidth',
-            label: '아주 크게',
+            label: 'Full Screen',
             icon: '🟠',
-            description: '전체 화면 문서 뷰어',
+            description: 'Full-screen document viewer',
             width: '100%',
             height: '800px'
         }
@@ -83,34 +83,34 @@ export const SIZE_PRESETS: Record<ContentCategory, SizeOption[]> = {
     image: [
         {
             id: 'thumbnail',
-            label: '썸네일',
+            label: 'Thumbnail',
             icon: '🔹',
-            description: '작은 미리보기 이미지',
+            description: 'Small preview image',
             width: '200px',
             height: 'auto'
         },
         {
             id: 'compact',
-            label: '아담하게',
+            label: 'Compact',
             icon: '🔸',
-            description: '본문에 어울리는 크기',
+            description: 'Suitable for body content',
             width: '400px',
             height: 'auto'
         },
         {
             id: 'medium',
-            label: '적당히 크게',
+            label: 'Medium',
             icon: '🔶',
-            description: '이미지 확인에 적합',
+            description: 'Good for viewing images',
             width: '600px',
             height: 'auto',
             recommended: true
         },
         {
             id: 'large',
-            label: '크게',
+            label: 'Large',
             icon: '🟠',
-            description: '상세 보기용',
+            description: 'For detailed viewing',
             width: '100%',
             height: 'auto'
         }
@@ -118,18 +118,18 @@ export const SIZE_PRESETS: Record<ContentCategory, SizeOption[]> = {
     audio: [
         {
             id: 'slim',
-            label: '슬림',
+            label: 'Slim',
             icon: '🎵',
-            description: '최소 공간 차지',
+            description: 'Minimal space',
             width: '100%',
             height: '100px',
             recommended: true
         },
         {
             id: 'standard',
-            label: '표준',
+            label: 'Standard',
             icon: '🎶',
-            description: '약간의 여백 포함',
+            description: 'With some padding',
             width: '100%',
             height: '120px'
         }
@@ -141,27 +141,27 @@ export const SIZE_PRESETS: Record<ContentCategory, SizeOption[]> = {
  */
 export const SUPPORTED_FILE_TYPES: SupportedFileType[] = [
     // Video
-    { extension: '.mp4', mimeType: 'video/mp4', category: 'video', icon: '🎬', label: 'MP4 비디오' },
-    { extension: '.webm', mimeType: 'video/webm', category: 'video', icon: '🎬', label: 'WebM 비디오' },
-    { extension: '.mov', mimeType: 'video/quicktime', category: 'video', icon: '🎬', label: 'QuickTime 비디오' },
-    { extension: '.avi', mimeType: 'video/x-msvideo', category: 'video', icon: '🎬', label: 'AVI 비디오' },
+    { extension: '.mp4', mimeType: 'video/mp4', category: 'video', icon: '🎬', label: 'MP4 Video' },
+    { extension: '.webm', mimeType: 'video/webm', category: 'video', icon: '🎬', label: 'WebM Video' },
+    { extension: '.mov', mimeType: 'video/quicktime', category: 'video', icon: '🎬', label: 'QuickTime Video' },
+    { extension: '.avi', mimeType: 'video/x-msvideo', category: 'video', icon: '🎬', label: 'AVI Video' },
 
     // Audio
-    { extension: '.mp3', mimeType: 'audio/mpeg', category: 'audio', icon: '🎵', label: 'MP3 오디오' },
-    { extension: '.wav', mimeType: 'audio/wav', category: 'audio', icon: '🎵', label: 'WAV 오디오' },
-    { extension: '.ogg', mimeType: 'audio/ogg', category: 'audio', icon: '🎵', label: 'OGG 오디오' },
-    { extension: '.m4a', mimeType: 'audio/mp4', category: 'audio', icon: '🎵', label: 'M4A 오디오' },
+    { extension: '.mp3', mimeType: 'audio/mpeg', category: 'audio', icon: '🎵', label: 'MP3 Audio' },
+    { extension: '.wav', mimeType: 'audio/wav', category: 'audio', icon: '🎵', label: 'WAV Audio' },
+    { extension: '.ogg', mimeType: 'audio/ogg', category: 'audio', icon: '🎵', label: 'OGG Audio' },
+    { extension: '.m4a', mimeType: 'audio/mp4', category: 'audio', icon: '🎵', label: 'M4A Audio' },
 
     // Document
-    { extension: '.pdf', mimeType: 'application/pdf', category: 'document', icon: '📄', label: 'PDF 문서' },
+    { extension: '.pdf', mimeType: 'application/pdf', category: 'document', icon: '📄', label: 'PDF Document' },
 
     // Image
-    { extension: '.jpg', mimeType: 'image/jpeg', category: 'image', icon: '🖼️', label: 'JPEG 이미지' },
-    { extension: '.jpeg', mimeType: 'image/jpeg', category: 'image', icon: '🖼️', label: 'JPEG 이미지' },
-    { extension: '.png', mimeType: 'image/png', category: 'image', icon: '🖼️', label: 'PNG 이미지' },
-    { extension: '.gif', mimeType: 'image/gif', category: 'image', icon: '🖼️', label: 'GIF 이미지' },
-    { extension: '.webp', mimeType: 'image/webp', category: 'image', icon: '🖼️', label: 'WebP 이미지' },
-    { extension: '.svg', mimeType: 'image/svg+xml', category: 'image', icon: '🖼️', label: 'SVG 이미지' }
+    { extension: '.jpg', mimeType: 'image/jpeg', category: 'image', icon: '🖼️', label: 'JPEG Image' },
+    { extension: '.jpeg', mimeType: 'image/jpeg', category: 'image', icon: '🖼️', label: 'JPEG Image' },
+    { extension: '.png', mimeType: 'image/png', category: 'image', icon: '🖼️', label: 'PNG Image' },
+    { extension: '.gif', mimeType: 'image/gif', category: 'image', icon: '🖼️', label: 'GIF Image' },
+    { extension: '.webp', mimeType: 'image/webp', category: 'image', icon: '🖼️', label: 'WebP Image' },
+    { extension: '.svg', mimeType: 'image/svg+xml', category: 'image', icon: '🖼️', label: 'SVG Image' }
 ];
 
 /**
@@ -232,10 +232,10 @@ export function getCategoryIcon(category: ContentCategory): string {
  */
 export function getCategoryLabel(category: ContentCategory): string {
     const labels: Record<ContentCategory, string> = {
-        video: '비디오',
-        audio: '오디오',
-        document: '문서',
-        image: '이미지'
+        video: 'Video',
+        audio: 'Audio',
+        document: 'Document',
+        image: 'Image'
     };
     return labels[category];
 }

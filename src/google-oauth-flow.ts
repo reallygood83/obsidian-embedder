@@ -96,7 +96,7 @@ export class GoogleOAuthFlow {
                 const authUrl = this.buildAuthUrl(redirectUri, codeChallenge);
 
                 // Open browser
-                new Notice('브라우저에서 Google 로그인을 진행해주세요...', 3000);
+                new Notice('Please log in with Google in your browser...', 3000);
                 const { shell } = require('electron');
                 shell.openExternal(authUrl);
 
@@ -270,7 +270,7 @@ export class GoogleOAuthFlow {
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Google Drive 연결 완료</title>
+    <title>Google Drive Connection Complete</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -309,9 +309,9 @@ export class GoogleOAuthFlow {
 <body>
     <div class="container">
         <div class="success-icon">✅</div>
-        <h1>연결 완료!</h1>
-        <p>Google Drive가 Drive Embedder에 연결되었습니다.</p>
-        <p class="close-hint">이 창을 닫고 Obsidian으로 돌아가세요.</p>
+        <h1>Connection Complete!</h1>
+        <p>Google Drive has been connected to Drive Embedder.</p>
+        <p class="close-hint">You can close this window and return to Obsidian.</p>
     </div>
 </body>
 </html>
@@ -327,7 +327,7 @@ export class GoogleOAuthFlow {
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>연결 실패</title>
+    <title>Connection Failed</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -370,10 +370,10 @@ export class GoogleOAuthFlow {
 <body>
     <div class="container">
         <div class="error-icon">❌</div>
-        <h1>연결 실패</h1>
-        <p>Google Drive 연결에 실패했습니다.</p>
+        <h1>Connection Failed</h1>
+        <p>Failed to connect to Google Drive.</p>
         <div class="error-detail">${error}</div>
-        <p>Obsidian에서 다시 시도해주세요.</p>
+        <p>Please try again in Obsidian.</p>
     </div>
 </body>
 </html>

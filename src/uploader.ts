@@ -63,16 +63,16 @@ export class GoogleDriveUploader {
                         await this.config.onTokenRefresh(newTokens);
                     }
 
-                    new Notice('Google Drive 토큰이 자동으로 갱신되었습니다');
+                    new Notice('Google Drive token automatically refreshed');
                 } catch (error: any) {
                     console.error('Token refresh failed:', error);
-                    throw new Error('토큰 갱신 실패. Google Drive를 다시 연결해주세요.');
+                    throw new Error('Token refresh failed. Please reconnect Google Drive.');
                 }
             }
         }
 
         if (!this.config.accessToken) {
-            throw new Error('Google Drive에 연결되지 않았습니다. 먼저 연결해주세요.');
+            throw new Error('Not connected to Google Drive. Please connect first.');
         }
 
         return this.config.accessToken;
@@ -90,7 +90,7 @@ export class GoogleDriveUploader {
             // Stage 1: Preparing
             onProgress?.({
                 stage: 'preparing',
-                message: '업로드 준비 중...',
+                message: 'Preparing upload...',
                 progress: 10
             });
 
@@ -106,7 +106,7 @@ export class GoogleDriveUploader {
             // Stage 2: Uploading
             onProgress?.({
                 stage: 'uploading',
-                message: 'Google Drive에 업로드 중...',
+                message: 'Uploading to Google Drive...',
                 progress: 30
             });
 
@@ -152,7 +152,7 @@ export class GoogleDriveUploader {
             // Stage 3: Setting permission
             onProgress?.({
                 stage: 'setting-permission',
-                message: '공개 설정 중...',
+                message: 'Setting public access...',
                 progress: 70
             });
 
@@ -164,7 +164,7 @@ export class GoogleDriveUploader {
             // Stage 4: Complete
             onProgress?.({
                 stage: 'complete',
-                message: '업로드 완료!',
+                message: 'Upload complete!',
                 progress: 100
             });
 
@@ -180,7 +180,7 @@ export class GoogleDriveUploader {
             console.error('Error uploading to Google Drive:', error);
             onProgress?.({
                 stage: 'error',
-                message: '업로드 실패',
+                message: 'Upload failed',
                 progress: 0,
                 error: error.message
             });

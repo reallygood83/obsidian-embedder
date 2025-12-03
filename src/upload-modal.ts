@@ -57,7 +57,7 @@ export class UploadModal extends Modal {
         });
 
         contentEl.createEl('p', {
-            text: '파일을 Google Drive에 업로드하고 임베드 코드를 생성합니다.',
+            text: 'Upload files to Google Drive and generate embed code.',
             cls: 'drive-embedder-subtitle'
         });
 
@@ -99,8 +99,8 @@ export class UploadModal extends Modal {
         dropZone.innerHTML = `
             <div class="dropzone-content">
                 <span class="dropzone-icon">📂</span>
-                <p class="dropzone-text">파일을 여기에 드래그하거나</p>
-                <button class="dropzone-btn">파일 선택</button>
+                <p class="dropzone-text">Drag files here or</p>
+                <button class="dropzone-btn">Select File</button>
             </div>
         `;
 
@@ -140,7 +140,7 @@ export class UploadModal extends Modal {
         // Check if file type is supported
         const fileInfo = getFileTypeInfo(file.name);
         if (!fileInfo) {
-            new Notice('지원하지 않는 파일 형식입니다.');
+            new Notice('Unsupported file type.');
             return;
         }
 
@@ -174,8 +174,8 @@ export class UploadModal extends Modal {
 
         // File details
         const fileDetails = infoCard.createDiv({ cls: 'file-details' });
-        fileDetails.createSpan({ text: `유형: ${fileInfo.label}`, cls: 'file-type' });
-        fileDetails.createSpan({ text: `크기: ${this.formatFileSize(file.size)}`, cls: 'file-size' });
+        fileDetails.createSpan({ text: `Type: ${fileInfo.label}`, cls: 'file-type' });
+        fileDetails.createSpan({ text: `Size: ${this.formatFileSize(file.size)}`, cls: 'file-size' });
     }
 
     private updateSizeOptions(category: ContentCategory) {
@@ -189,7 +189,7 @@ export class UploadModal extends Modal {
 
         // Section title
         this.sizeOptionsEl.createEl('h4', {
-            text: '📐 임베드 크기 선택',
+            text: '📐 Select Embed Size',
             cls: 'size-section-title'
         });
 
@@ -205,7 +205,7 @@ export class UploadModal extends Modal {
                 <span class="size-icon">${preset.icon}</span>
                 <span class="size-label">${preset.label}</span>
                 <span class="size-desc">${preset.description}</span>
-                ${preset.recommended ? '<span class="recommended-badge">추천</span>' : ''}
+                ${preset.recommended ? '<span class="recommended-badge">Recommended</span>' : ''}
             `;
 
             // Select default (recommended)
@@ -230,8 +230,8 @@ export class UploadModal extends Modal {
         const toggleSection = container.createDiv({ cls: 'drive-embedder-toggle-section' });
 
         new Setting(toggleSection)
-            .setName('파일명 표시')
-            .setDesc('임베드 위에 파일명을 표시합니다')
+            .setName('Show filename')
+            .setDesc('Display filename above the embed')
             .addToggle(toggle => toggle
                 .setValue(this.showTitle)
                 .onChange(value => {
@@ -245,14 +245,14 @@ export class UploadModal extends Modal {
 
         // Cancel button
         const cancelBtn = buttonContainer.createEl('button', {
-            text: '취소',
+            text: 'Cancel',
             cls: 'drive-embedder-btn cancel'
         });
         cancelBtn.addEventListener('click', () => this.close());
 
         // Upload button
         this.uploadBtn = buttonContainer.createEl('button', {
-            text: '📤 업로드 & 임베드',
+            text: '📤 Upload & Embed',
             cls: 'drive-embedder-btn primary'
         });
         this.uploadBtn.disabled = true;
@@ -264,26 +264,26 @@ export class UploadModal extends Modal {
 
         infoSection.innerHTML = `
             <details>
-                <summary>지원 파일 형식</summary>
+                <summary>Supported File Formats</summary>
                 <div class="formats-grid">
                     <div class="format-group">
                         <span class="format-icon">🎬</span>
-                        <span class="format-label">동영상</span>
+                        <span class="format-label">Video</span>
                         <span class="format-types">MP4, WebM, MOV, AVI</span>
                     </div>
                     <div class="format-group">
                         <span class="format-icon">🎵</span>
-                        <span class="format-label">오디오</span>
+                        <span class="format-label">Audio</span>
                         <span class="format-types">MP3, WAV, OGG, M4A</span>
                     </div>
                     <div class="format-group">
                         <span class="format-icon">📄</span>
-                        <span class="format-label">문서</span>
+                        <span class="format-label">Document</span>
                         <span class="format-types">PDF</span>
                     </div>
                     <div class="format-group">
                         <span class="format-icon">🖼️</span>
-                        <span class="format-label">이미지</span>
+                        <span class="format-label">Image</span>
                         <span class="format-types">JPG, PNG, GIF, WebP, SVG</span>
                     </div>
                 </div>
@@ -293,14 +293,14 @@ export class UploadModal extends Modal {
 
     private async handleUpload() {
         if (!this.selectedFile || !this.selectedSize) {
-            new Notice('파일과 크기를 선택해주세요.');
+            new Notice('Please select a file and size.');
             return;
         }
 
         // Disable upload button
         if (this.uploadBtn) {
             this.uploadBtn.disabled = true;
-            this.uploadBtn.textContent = '업로드 중...';
+            this.uploadBtn.textContent = 'Uploading...';
         }
 
         // Show progress
@@ -314,11 +314,11 @@ export class UploadModal extends Modal {
             );
 
             if (!result) {
-                throw new Error('업로드 결과를 받지 못했습니다.');
+                throw new Error('Failed to receive upload result.');
             }
 
             // Success!
-            new Notice('✅ 업로드 완료! 임베드 코드가 생성되었습니다.');
+            new Notice('✅ Upload complete! Embed code generated.');
 
             this.onComplete({
                 file: this.selectedFile,
@@ -332,12 +332,12 @@ export class UploadModal extends Modal {
             this.close();
         } catch (error: any) {
             console.error('Upload failed:', error);
-            new Notice(`❌ 업로드 실패: ${error.message}`);
+            new Notice(`❌ Upload failed: ${error.message}`);
 
             // Re-enable upload button
             if (this.uploadBtn) {
                 this.uploadBtn.disabled = false;
-                this.uploadBtn.textContent = '📤 업로드 & 임베드';
+                this.uploadBtn.textContent = '📤 Upload & Embed';
             }
 
             this.hideProgress();
@@ -356,7 +356,7 @@ export class UploadModal extends Modal {
                     <div class="progress-fill" style="width: 0%"></div>
                 </div>
                 <div class="progress-text">
-                    <span class="progress-status">준비 중...</span>
+                    <span class="progress-status">Preparing...</span>
                     <span class="progress-percent">0%</span>
                 </div>
             </div>

@@ -1,16 +1,16 @@
 # Drive Embedder
 
-Upload local files to Google Drive and embed them directly in your Obsidian notes with intuitive Korean size options.
+Upload local files to Google Drive and embed them directly in your Obsidian notes with intuitive size options.
 
 ## Features
 
 - 🚀 **One-Click Upload**: Upload files directly to Google Drive from Obsidian
 - 🔗 **Auto Embed Generation**: Automatically creates embed code for your notes
-- 📐 **Intuitive Size Options**: Korean labels like "아담하게", "적당히 크게", "크게", "아주 크게"
-- 🎵 **Audio Optimized**: Special compact sizes for audio files ("슬림", "표준")
+- 📐 **Intuitive Size Options**: Clear size labels like "Compact", "Medium", "Large", "Full Width"
+- 🎵 **Audio Optimized**: Special compact sizes for audio files ("Slim", "Standard")
 - 📂 **Multi-Format Support**: Video (MP4, WebM, MOV, AVI), Audio (MP3, WAV, OGG, M4A), PDF, Images (JPG, PNG, GIF, WebP, SVG)
 - 🔄 **Real-Time Progress**: Visual upload progress tracking
-- 🎨 **Beautiful UI**: Clean, intuitive interface with Korean language support
+- 🎨 **Beautiful UI**: Clean, intuitive interface with worldwide language support
 
 ## Installation via BRAT
 
@@ -58,7 +58,7 @@ Before using the plugin, you need to set up Google OAuth credentials:
 1. Open Obsidian Settings → Drive Embedder
 2. Paste your **Client ID**
 3. Paste your **Client Secret**
-4. Click "연결하기" (Connect)
+4. Click "Connect"
 5. Follow the browser authorization flow
 6. Grant permissions to your Google Drive
 
@@ -67,29 +67,29 @@ Before using the plugin, you need to set up Google OAuth credentials:
 ### Upload and Embed Files
 
 1. Click the cloud upload icon in the ribbon, or
-2. Use command palette: "Drive Embedder: 파일 업로드 & 임베드"
+2. Use command palette: "Drive Embedder: Upload File & Embed"
 3. Select a file or drag & drop
-4. Choose your preferred size (intuitive Korean labels)
-5. Click "📤 업로드 & 임베드"
+4. Choose your preferred size (intuitive size labels)
+5. Click "Upload & Embed"
 6. Embed code is automatically inserted at cursor position
 
 ### Size Options
 
 #### Video & Documents
-- 🔹 **아담하게** (Compact): Perfect for inline content
-- 🔸 **적당히 크게** (Medium): Recommended for most use cases
-- 🔶 **크게** (Large): For detailed viewing
-- 🟠 **아주 크게** (Full Width): Immersive viewing experience
+- 🔹 **Compact**: Perfect for inline content
+- 🔸 **Medium**: Recommended for most use cases
+- 🔶 **Large**: For detailed viewing
+- 🟠 **Full Width**: Immersive viewing experience
 
 #### Audio
-- 🎵 **슬림** (Slim): Minimal space (54px height)
-- 🎶 **표준** (Standard): With padding (80px height)
+- 🎵 **Slim**: Minimal space (100px height)
+- 🎶 **Standard**: With padding (120px height)
 
 #### Images
-- 🔹 **썸네일** (Thumbnail): 200px width
-- 🔸 **아담하게** (Compact): 400px width
-- 🔶 **적당히 크게** (Medium): 600px width
-- 🟠 **크게** (Large): 100% width
+- 🔹 **Small**: 300px width
+- 🔸 **Medium**: 500px width
+- 🔶 **Large**: 800px width
+- 🟠 **Original Size**: Full resolution
 
 ## Settings
 
@@ -117,7 +117,7 @@ Before using the plugin, you need to set up Google OAuth credentials:
 
 ## Troubleshooting
 
-### "연결 안됨" (Not Connected)
+### "Not Connected"
 - Verify Client ID and Client Secret are correct
 - Ensure Google Drive API is enabled
 - Check OAuth consent screen is configured
@@ -132,6 +132,13 @@ Before using the plugin, you need to set up Google OAuth credentials:
 - If issues persist, disconnect and reconnect
 
 ## Version History
+
+### v1.0.7 (2025-12-03)
+- **🌍 Complete Internationalization**: All user-facing text converted to English for worldwide distribution
+- **📝 Updated Interface**: Settings, modals, notices, and help documentation now in English
+- **📜 License Change**: Changed from MIT to Proprietary Non-Commercial License
+- **🌐 Global Ready**: Plugin prepared for official Obsidian community plugin registry
+- No functionality changes - all features work exactly as before
 
 ### v1.0.6 (2025-12-03)
 - **Audio Player Fix**: Increased audio embed height for proper Google Drive player display
@@ -189,7 +196,15 @@ Developed by [reallygood83](https://github.com/reallygood83)
 
 ## License
 
-MIT License - feel free to use and modify as needed.
+Proprietary Non-Commercial License
+
+Copyright (c) 2025 reallygood83. All rights reserved.
+
+This software is licensed for personal, educational, and non-commercial use only. Commercial use, distribution for profit, or any revenue-generating activities are strictly prohibited without explicit permission from the copyright holder.
+
+For full license terms, see the [LICENSE](LICENSE) file.
+
+For commercial licensing inquiries, please contact reallygood83.
 
 ## Support
 
